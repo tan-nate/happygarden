@@ -1,16 +1,27 @@
+const canvas = document.getElementById("canvas");
+const stage = new createjs.Stage(canvas);
 const pot = new Image;
 pot.src = "./assets/pot.png";
+const bmp = new createjs.Bitmap(pot);
+let color
+let stroke
 
 function init() {
-    pot.onload = addPotToCanvas;
+    bmp.onload = addPotToCanvas;
 }
 
 function addPotToCanvas() {
-    const canvas = document.getElementById("canvas");
-	const stage = new createjs.Stage(canvas);
-	const bmp = new createjs.Bitmap(pot);
     stage.addChild(bmp);
     stage.update();
+}
+
+function handleMouseDown(event) {
+	if (!event.primary) { return; }
+	color = "#828b20";
+	stroke = 8;
+	oldPt = new createjs.Point(stage.mouseX, stage.mouseY);
+	oldMidPt = oldPt.clone();
+	stage.addEventListener("stagemousemove", handleMouseMove);
 }
 
 document.addEventListener("DOMContentLoaded", init);
