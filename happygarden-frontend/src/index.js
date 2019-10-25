@@ -1,6 +1,6 @@
 const canvas = document.getElementById("canvas");
 const stage = new createjs.Stage(canvas);
-let drawingCanvas;
+const drawingCanvas = new createjs.Shape();
 const pot = new Image;
 pot.src = "./assets/pot.png";
 const bmp = new createjs.Bitmap(pot);
@@ -10,24 +10,16 @@ let oldPt;
 let oldMidPt;
 
 function init() {
-    // pot.onload = addPotToCanvas;
-    stage.autoClear = false;
-	stage.enableDOMEvents(true);
+    pot.onload = prepareCanvas;
 
 	createjs.Touch.enable(stage);
-	createjs.Ticker.framerate = 24;
-
-	drawingCanvas = new createjs.Shape();
 
 	stage.addEventListener("stagemousedown", handleMouseDown);
     stage.addEventListener("stagemouseup", handleMouseUp);
-    
-    stage.addChild(drawingCanvas);
-	stage.update();
 }
 
-function addPotToCanvas() {
-    stage.addChild(bmp);
+function prepareCanvas() {
+    stage.addChild(bmp, drawingCanvas);
     stage.update();
 }
 
@@ -42,7 +34,7 @@ function handleMouseMove(event) {
 	if (!event.primary) { return; }
 	let midPt = new createjs.Point(oldPt.x + stage.mouseX >> 1, oldPt.y + stage.mouseY >> 1);
 
-	drawingCanvas.graphics.clear().setStrokeStyle(stroke, 'round', 'round').beginStroke(color).moveTo(midPt.x, midPt.y).curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
+	drawingCanvas.graphics.setStrokeStyle(stroke, 'round', 'round').beginStroke(color).moveTo(midPt.x, midPt.y).curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
 
 	oldPt.x = stage.mouseX;
 	oldPt.y = stage.mouseY;
