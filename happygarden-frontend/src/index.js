@@ -6,9 +6,8 @@ const drawingCanvas = new createjs.Shape();
 const pot = new Image;
 pot.crossOrigin = "anonymous";
 pot.src = "https://i.imgur.com/yteHSyv.png?2";
-
 const bmp = new createjs.Bitmap(pot);
-let color = "#1aff00";
+let color;
 let stroke = 20;
 let oldPt;
 let oldMidPt;
@@ -29,7 +28,8 @@ function prepareCanvas() {
 }
 
 function handleMouseDown(event) {
-	if (!event.primary) { return; }
+    if (!event.primary) { return; }
+    color = document.querySelector("input#html5colorpicker").value;
 	oldPt = new createjs.Point(stage.mouseX, stage.mouseY);
 	oldMidPt = oldPt.clone();
 	stage.addEventListener("stagemousemove", handleMouseMove);
