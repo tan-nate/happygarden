@@ -9,6 +9,7 @@ div#eraser {
 }
 canvas#canvas {
     display: block;
+    cursor: pointer;
 }
 div#separator {
     border-bottom: 2px solid;

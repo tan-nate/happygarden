@@ -107,7 +107,7 @@ function saveCanvas() {
         .then(function(plant) {
             let img = document.createElement("img");
             img.src = plant.image_url;
-            document.querySelector("div#saved-image-container").appendChild(img);
+            document.querySelector("div#saved-image-container").prepend(img);
         });
 }
 
