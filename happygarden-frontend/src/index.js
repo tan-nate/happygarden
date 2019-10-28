@@ -3,6 +3,7 @@
 const canvas = document.getElementById("canvas");
 const stage = new createjs.Stage(canvas);
 const drawingCanvas = new createjs.Shape();
+drawingCanvas.cache(0,0,300,450);
 const pot = new Image;
 pot.crossOrigin = "anonymous";
 pot.src = "https://i.imgur.com/yteHSyv.png?2";
@@ -22,7 +23,7 @@ function init() {
 }
 
 function prepareCanvas() {
-    stage.addChild(bmp).y = 200;
+    stage.addChild(bmp).y = 270;
     stage.addChild(drawingCanvas);
     stage.update();
 }
@@ -42,7 +43,11 @@ function handleMouseMove(event) {
 
     drawingCanvas.graphics.setStrokeStyle(stroke, 'round', 'round').beginStroke(color).moveTo(midPt.x, midPt.y).curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
 
-	oldPt.x = stage.mouseX;
+    drawingCanvas.updateCache(erase.checked ? "destination-out" : "source-over");
+
+    drawingCanvas.graphics.clear();
+    
+    oldPt.x = stage.mouseX;
 	oldPt.y = stage.mouseY;
 
 	oldMidPt.x = midPt.x;

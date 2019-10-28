@@ -1,7 +1,10 @@
 div#palette {
     display: inline-block;
 }
-div.slidecontainer {
+div#slidecontainer {
+    display: inline-block;
+}
+div#eraser {
     display: inline-block;
 }
 canvas#canvas {
