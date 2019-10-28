@@ -1,0 +1,13 @@
+div#palette {
+    display: inline-block;
+}
+div.slidecontainer {
+    display: inline-block;
+}
+canvas#canvas {
+    display: block;
+}
+div#separator {
+    border-bottom: 2px solid;
+    margin: 1em 0 1em 0;
+}

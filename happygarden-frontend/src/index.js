@@ -8,7 +8,7 @@ pot.crossOrigin = "anonymous";
 pot.src = "https://i.imgur.com/yteHSyv.png?2";
 const bmp = new createjs.Bitmap(pot);
 let color;
-let stroke = 20;
+let stroke;
 let oldPt;
 let oldMidPt;
 
@@ -30,6 +30,7 @@ function prepareCanvas() {
 function handleMouseDown(event) {
     if (!event.primary) { return; }
     color = document.querySelector("input#html5colorpicker").value;
+    stroke = document.querySelector("input#brush-slider").value / 3;
 	oldPt = new createjs.Point(stage.mouseX, stage.mouseY);
 	oldMidPt = oldPt.clone();
 	stage.addEventListener("stagemousemove", handleMouseMove);
@@ -39,13 +40,13 @@ function handleMouseMove(event) {
 	if (!event.primary) { return; }
 	let midPt = new createjs.Point(oldPt.x + stage.mouseX >> 1, oldPt.y + stage.mouseY >> 1);
 
-	drawingCanvas.graphics.setStrokeStyle(stroke, 'round', 'round').beginStroke(color).moveTo(midPt.x, midPt.y).curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
+    drawingCanvas.graphics.setStrokeStyle(stroke, 'round', 'round').beginStroke(color).moveTo(midPt.x, midPt.y).curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
 
 	oldPt.x = stage.mouseX;
 	oldPt.y = stage.mouseY;
 
 	oldMidPt.x = midPt.x;
-	oldMidPt.y = midPt.y;
+    oldMidPt.y = midPt.y;
 
 	stage.update();
 }
