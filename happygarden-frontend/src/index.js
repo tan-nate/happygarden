@@ -50,7 +50,10 @@ function handleMouseUp(event) {
 	stage.removeEventListener("stagemousemove", handleMouseMove);
 }
 
-document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded", function() {
+    init();
+    saveCanvasAction();
+});
 
 // Save canvas image
 
@@ -58,9 +61,7 @@ function saveCanvas() {
     let dataURL = canvas.toDataURL();
     
     let formData = {
-        data: { 
-            imgBase64: dataURL
-        }
+        imgBase64: dataURL
     };
      
     let configObj = {
