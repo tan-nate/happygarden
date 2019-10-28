@@ -1,8 +1,12 @@
+// Draw on canvas
+
 const canvas = document.getElementById("canvas");
 const stage = new createjs.Stage(canvas);
 const drawingCanvas = new createjs.Shape();
 const pot = new Image;
-pot.src = "./assets/pot.png";
+pot.crossOrigin = "anonymous";
+pot.src = "https://i.imgur.com/yteHSyv.png?1";
+
 const bmp = new createjs.Bitmap(pot);
 let color = "#1aff00";
 let stroke = 20;
@@ -50,11 +54,6 @@ function handleMouseUp(event) {
 	stage.removeEventListener("stagemousemove", handleMouseMove);
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    init();
-    saveCanvasAction();
-});
-
 // Save canvas image
 
 function saveCanvas() {
@@ -65,18 +64,21 @@ function saveCanvas() {
     };
      
     let configObj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(formData)
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(formData)
     };
      
     fetch("http://localhost:3000/plants", configObj)
-      .then(function(response) {
-        console.log(response.json());
-      })
+        .then(response => response.json())
+        .then(function(plant) {
+            let img = document.createElement("img");
+            img.src = plant.image_url;
+            document.querySelector("div#saved-image-container").appendChild(img);
+        });
     //   .then(function(toy) {
     //     console.log(toy)
     //     let card = document.createElement('div')
@@ -105,3 +107,10 @@ function saveCanvasAction() {
         saveCanvas();
     });
 }
+
+// Initiate script
+
+document.addEventListener("DOMContentLoaded", function() {
+    init();
+    saveCanvasAction();
+});
