@@ -5,7 +5,7 @@ const stage = new createjs.Stage(canvas);
 const drawingCanvas = new createjs.Shape();
 const pot = new Image;
 pot.crossOrigin = "anonymous";
-pot.src = "https://i.imgur.com/yteHSyv.png?1";
+pot.src = "https://i.imgur.com/yteHSyv.png?2";
 
 const bmp = new createjs.Bitmap(pot);
 let color = "#1aff00";
@@ -23,7 +23,8 @@ function init() {
 }
 
 function prepareCanvas() {
-    stage.addChild(bmp, drawingCanvas);
+    stage.addChild(bmp).y = 200;
+    stage.addChild(drawingCanvas);
     stage.update();
 }
 
@@ -54,6 +55,20 @@ function handleMouseUp(event) {
 	stage.removeEventListener("stagemousemove", handleMouseMove);
 }
 
+// Fetch all plants
+
+const PLANTS_URL = "http://localhost:3000/plants";
+
+function fetchPlants() {
+    fetch(PLANTS_URL)
+        .then(resp => resp.json())
+        .then(json => json.forEach(function(plant) {
+            let img = document.createElement("img");
+            img.src = plant.image_url;
+            document.querySelector("div#saved-image-container").appendChild(img);
+        }));
+}
+
 // Save canvas image
 
 function saveCanvas() {
@@ -72,33 +87,13 @@ function saveCanvas() {
         body: JSON.stringify(formData)
     };
      
-    fetch("http://localhost:3000/plants", configObj)
+    fetch(PLANTS_URL, configObj)
         .then(response => response.json())
         .then(function(plant) {
             let img = document.createElement("img");
             img.src = plant.image_url;
             document.querySelector("div#saved-image-container").appendChild(img);
         });
-    //   .then(function(toy) {
-    //     console.log(toy)
-    //     let card = document.createElement('div')
-    //     card.className = 'card'
-    //     let h2 = document.createElement('h2');
-    //     h2.innerHTML = toy.name
-    //     let img = document.createElement('img');
-    //     img.className = 'toy-avatar'
-    //     img.src = toy.image
-    //     let p = document.createElement('p');
-    //     p.innerText = `${toy.likes} Likes`
-    //     let btn = document.createElement('button');
-    //     btn.className = 'like-btn'
-    //     btn.innerText = 'Like <3';
-    //     [h2, img, p, btn].forEach(function(element) {
-    //       card.appendChild(element)
-    //     })
-    //     card.id = toy.id
-    //     document.querySelector('div#toy-collection').appendChild(card)
-    //   });
 }
 
 function saveCanvasAction() {
@@ -112,5 +107,6 @@ function saveCanvasAction() {
 
 document.addEventListener("DOMContentLoaded", function() {
     init();
+    fetchPlants();
     saveCanvasAction();
 });
