@@ -2,7 +2,7 @@
 
 const canvas = document.getElementById("canvas");
 const stage = new createjs.Stage(canvas);
-const drawingCanvas = new createjs.Shape();
+let drawingCanvas = new createjs.Shape();
 drawingCanvas.cache(0,0,300,450);
 const pot = new Image;
 pot.crossOrigin = "anonymous";
@@ -20,6 +20,7 @@ function init() {
 
 	stage.addEventListener("stagemousedown", handleMouseDown);
     stage.addEventListener("stagemouseup", handleMouseUp);
+    document.querySelector("button#clear-canvas").addEventListener("click", clearCanvas);
 }
 
 function prepareCanvas() {
@@ -59,6 +60,14 @@ function handleMouseMove(event) {
 function handleMouseUp(event) {
 	if (!event.primary) { return; }
 	stage.removeEventListener("stagemousemove", handleMouseMove);
+}
+
+function clearCanvas() {
+    stage.removeChild(drawingCanvas);
+    stage.update();
+    drawingCanvas = new createjs.Shape();
+    drawingCanvas.cache(0,0,300,450);
+    stage.addChild(drawingCanvas);
 }
 
 // Fetch all plants
@@ -106,6 +115,7 @@ function saveCanvasAction() {
     document.querySelector("button#save-canvas").addEventListener("click", function(e) {
         e.preventDefault();
         saveCanvas();
+        clearCanvas();
     });
 }
 
