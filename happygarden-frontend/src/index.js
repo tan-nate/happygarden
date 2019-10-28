@@ -51,3 +51,56 @@ function handleMouseUp(event) {
 }
 
 document.addEventListener("DOMContentLoaded", init);
+
+// Save canvas image
+
+function saveCanvas() {
+    let dataURL = canvas.toDataURL();
+    
+    let formData = {
+        data: { 
+            imgBase64: dataURL
+        }
+    };
+     
+    let configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(formData)
+    };
+     
+    fetch("http://localhost:3000/plants", configObj)
+      .then(function(response) {
+        console.log(response.json());
+      })
+    //   .then(function(toy) {
+    //     console.log(toy)
+    //     let card = document.createElement('div')
+    //     card.className = 'card'
+    //     let h2 = document.createElement('h2');
+    //     h2.innerHTML = toy.name
+    //     let img = document.createElement('img');
+    //     img.className = 'toy-avatar'
+    //     img.src = toy.image
+    //     let p = document.createElement('p');
+    //     p.innerText = `${toy.likes} Likes`
+    //     let btn = document.createElement('button');
+    //     btn.className = 'like-btn'
+    //     btn.innerText = 'Like <3';
+    //     [h2, img, p, btn].forEach(function(element) {
+    //       card.appendChild(element)
+    //     })
+    //     card.id = toy.id
+    //     document.querySelector('div#toy-collection').appendChild(card)
+    //   });
+}
+
+function saveCanvasAction() {
+    document.querySelector("button#save-canvas").addEventListener("click", function(e) {
+        e.preventDefault();
+        saveCanvas();
+    });
+}
