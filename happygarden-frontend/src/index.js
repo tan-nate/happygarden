@@ -80,7 +80,9 @@ function fetchPlants() {
         .then(json => json.forEach(function(plant) {
             let img = document.createElement("img");
             img.src = plant.image_url;
-            document.querySelector("div#saved-image-container").appendChild(img);
+            let div = document.createElement("div");
+            div.appendChild(img);
+            document.querySelector("div#saved-image-container").appendChild(div);
         }));
 }
 
@@ -107,7 +109,9 @@ function saveCanvas() {
         .then(function(plant) {
             let img = document.createElement("img");
             img.src = plant.image_url;
-            document.querySelector("div#saved-image-container").prepend(img);
+            let div = document.createElement("div");
+            div.appendChild(img);
+            document.querySelector("div#saved-image-container").prepend(div);
         });
 }
 
