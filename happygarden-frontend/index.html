@@ -4,26 +4,34 @@
     <meta charset="utf-8">
     <title>happygarden</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="canvas-container">
-        <div id="palette">
-            <input type="color" id="html5colorpicker" value="#00ff00">
+    <h1 id="title">
+        happygarden
+    </h1>
+    <div id="collapsible">
+        <a id="plant-header">
+            plant
+        </a>
+        <div id="canvas-container">
+            <div id="palette">
+                <input type="color" id="html5colorpicker" value="#00ff00">
+            </div>
+            <div id="slidecontainer">
+                <input type="range" id="brush-slider" min="1" max="100" value="50">
+            </div>
+            <div id="eraser">
+                <input type="checkbox" id="erase">erase</input>
+            </div>
+            <br>
+            <br>
+            <button id="clear-canvas">clear</button>
+            <button id="save-canvas">plant!</button>
+            <br>
+            <br>
+            <canvas id="canvas" width="260" height="450">Your browser does not support the HTML5 canvas tag.</canvas>
         </div>
-        <div id="slidecontainer">
-            <input type="range" id="brush-slider" min="1" max="100" value="50">
-        </div>
-        <div id="eraser">
-            <input type="checkbox" id="erase">erase</input>
-        </div>
-        <br>
-        <br>
-        <button id="clear-canvas">clear canvas</button>
-        <br>
-        <br>
-        <canvas id="canvas" width="260" height="450">Your browser does not support the HTML5 canvas tag.</canvas>
-        <br>
-        <button id="save-canvas">plant!</button>
     </div>
     <br>
     <div id="saved-image-container"></div>
