@@ -1,13 +1,38 @@
+// Fetch all plants
+
+const PLANTS_URL = "http://localhost:3000/plants";
+
+function fetchPlants() {
+    fetch(PLANTS_URL)
+        .then(resp => resp.json())
+        .then(json => json.forEach(function(plant) {
+            let img = document.createElement("img");
+            img.className = "plant";
+            img.src = plant.image_url;
+            let div = document.createElement("div");
+            div.className = "card";
+            div.appendChild(img);
+            document.querySelector("div#saved-image-container").prepend(div);
+        }));
+}
+
 // Draw on canvas
 
 const canvas = document.getElementById("canvas");
 const stage = new createjs.Stage(canvas);
 let drawingCanvas = new createjs.Shape();
 drawingCanvas.cache(0,0,300,450);
+
 const pot = new Image;
 pot.crossOrigin = "anonymous";
-pot.src = "https://i.imgur.com/yteHSyv.png?2";
+pot.src = "https://i.imgur.com/8109gmp.png";
 const bmp = new createjs.Bitmap(pot);
+
+const ground = new Image;
+ground.crossOrigin = "anonymous";
+ground.src = "https://i.imgur.com/wpRjDTj.png?1";
+const groundBmp = new createjs.Bitmap(ground);
+
 let color;
 let stroke;
 let oldPt;
@@ -64,29 +89,29 @@ function handleMouseUp(event) {
 
 function clearCanvas() {
     stage.removeChild(drawingCanvas);
-    stage.update();
     drawingCanvas = new createjs.Shape();
     drawingCanvas.cache(0,0,300,450);
     stage.addChild(drawingCanvas);
-}
-
-// Fetch all plants
-
-const PLANTS_URL = "http://localhost:3000/plants";
-
-function fetchPlants() {
-    fetch(PLANTS_URL)
-        .then(resp => resp.json())
-        .then(json => json.forEach(function(plant) {
-            let img = document.createElement("img");
-            img.src = plant.image_url;
-            let div = document.createElement("div");
-            div.appendChild(img);
-            document.querySelector("div#saved-image-container").appendChild(div);
-        }));
+    stage.update();
 }
 
 // Save canvas image
+
+function changePotToGround() {
+    stage.removeAllChildren();
+    stage.addChild(drawingCanvas).y = 140;
+    stage.addChild(groundBmp).y = 270;
+    stage.update();
+}
+
+function changeGroundToPot() {
+    stage.removeAllChildren();
+    stage.addChild(bmp).y = 270;
+    drawingCanvas = new createjs.Shape();
+    drawingCanvas.cache(0,0,300,450);
+    stage.addChild(drawingCanvas);
+    stage.update()
+}
 
 function saveCanvas() {
     let dataURL = canvas.toDataURL();
@@ -109,7 +134,9 @@ function saveCanvas() {
         .then(function(plant) {
             let img = document.createElement("img");
             img.src = plant.image_url;
+            img.className = "plant";
             let div = document.createElement("div");
+            div.className = "card";
             div.appendChild(img);
             document.querySelector("div#saved-image-container").prepend(div);
         });
@@ -118,8 +145,9 @@ function saveCanvas() {
 function saveCanvasAction() {
     document.querySelector("button#save-canvas").addEventListener("click", function(e) {
         e.preventDefault();
+        changePotToGround();
         saveCanvas();
-        clearCanvas();
+        changeGroundToPot();
     });
 }
 

@@ -1,17 +1,41 @@
+body {
+    margin: 0;
+    background-color: aliceblue;
+}
 div#palette {
-    display: inline-block;
+    display: inline-block; 
 }
 div#slidecontainer {
-    display: inline-block;
+    display: inline-block; 
 }
 div#eraser {
-    display: inline-block;
+    display: inline-block; 
 }
 canvas#canvas {
     display: block;
     cursor: pointer;
 }
+div#canvas-container {
+    z-index: 1;
+}
 div#separator {
     border-bottom: 2px solid;
-    margin: 1em 0 1em 0;
+    margin: 1em 0 1em 0; 
+}
+#saved-image-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto; 
+    background-color: aliceblue;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+}
+#saved-image-container .card {
+    flex: 0 0 auto; 
+    margin-top: -50px;
+}
+img.plant {
+    display: block;
 }
