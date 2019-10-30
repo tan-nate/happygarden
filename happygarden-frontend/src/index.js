@@ -39,7 +39,6 @@ function activateCollapsible() {
         document.querySelector('div#canvas-container').classList.toggle('active');
         active = !active;
         
-        e.preventDefault();
         if(active) {
             this.innerText = "hide";
         }
@@ -83,6 +82,8 @@ function saveCanvasAction() {
 
     function init() {
         pot.onload = prepareCanvas;
+
+        addPlantTag();
 
         createjs.Touch.enable(stage);
 
@@ -137,6 +138,15 @@ function saveCanvasAction() {
         drawingCanvas.cache(0,0,300,450);
         stage.addChild(drawingCanvas);
         stage.update();
+    }
+
+    // Add plant tag
+
+    function addPlantTag() {
+        document.querySelector("button#add-plant-tag").addEventListener("click", function(e) {
+            e.preventDefault();
+            document.querySelector('div#tag-form-container').classList.toggle('active');
+        });
     }
 
     // Save canvas image

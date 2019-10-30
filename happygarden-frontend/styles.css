@@ -48,9 +48,20 @@ div#canvas-container {
 div#canvas-container.active {
     max-height: 600px;
 }
-div#separator {
-    border-bottom: 2px solid;
-    margin: 1em 0 1em 0; 
+div#tag-form-container {
+    background-image: url("https://i.imgur.com/FHLEo23.png");
+    background-repeat: no-repeat;
+    width: 300px;
+    position: absolute;
+    top: 50px;
+    right: 100px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    height: 500px;
+    max-height: 0;
+}
+div#tag-form-container.active {
+    max-height: 500px;
 }
 #saved-image-container {
     display: flex;
