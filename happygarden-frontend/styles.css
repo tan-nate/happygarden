@@ -38,12 +38,21 @@ canvas#canvas {
     cursor: pointer;
     margin: 0 auto;
 }
+div#canvas-wrapper {
+    text-align: center;
+}
+div#tag-form-wrapper {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
 div#canvas-container {
     z-index: 1;
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
     height: auto;
     max-height: 0;
+    display: inline-block;
 }
 div#canvas-container.active {
     max-height: 600px;
@@ -53,8 +62,8 @@ div#tag-form-container {
     background-repeat: no-repeat;
     width: 300px;
     position: absolute;
-    top: 50px;
-    right: 100px;
+    /* top: 50px;
+    right: 100px; */
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
     height: 500px;

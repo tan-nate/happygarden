@@ -14,26 +14,29 @@
         <a id="plant-header">
             plant
         </a>
-        <div id="canvas-container">
-            <div id="palette">
-                <input type="color" id="html5colorpicker" value="#00ff00">
+        <div id="canvas-wrapper">
+            <div id="canvas-container">
+                <div id="palette">
+                    <input type="color" id="html5colorpicker" value="#00ff00">
+                </div>
+                <div id="slidecontainer">
+                    <input type="range" id="brush-slider" min="1" max="100" value="50">
+                </div>
+                <div id="eraser">
+                    <input type="checkbox" id="erase">erase</input>
+                </div>
+                <br>
+                <br>
+                <button id="clear-canvas">clear</button>
+                <button id="save-canvas">plant!</button>
+                <button id="add-plant-tag">. . .</button>
+                <br>
+                <br>
+                <canvas id="canvas" width="260" height="450">Your browser does not support the HTML5 canvas tag.</canvas>
             </div>
-            <div id="slidecontainer">
-                <input type="range" id="brush-slider" min="1" max="100" value="50">
+            <div id="tag-form-wrapper">
+                <div id="tag-form-container"></div>
             </div>
-            <div id="eraser">
-                <input type="checkbox" id="erase">erase</input>
-            </div>
-            <br>
-            <br>
-            <button id="clear-canvas">clear</button>
-            <button id="save-canvas">plant!</button>
-            <button id="add-plant-tag">. . .</button>
-            <br>
-            <br>
-            <canvas id="canvas" width="260" height="450">Your browser does not support the HTML5 canvas tag.</canvas>
-        </div>
-        <div id="tag-form-container">
         </div>
     </div>
     <br>
