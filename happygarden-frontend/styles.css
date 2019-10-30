@@ -69,3 +69,10 @@ div#separator {
 img.plant {
     display: block;
 }
+img.tag {
+    position: absolute;
+    bottom: 5px;
+    margin-left: 20px;
+    width: 50px;
+    height: auto;
+}

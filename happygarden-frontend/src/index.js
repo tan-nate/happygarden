@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // Fetch all plants
 
 const PLANTS_URL = "http://localhost:3000/plants";
+const tag_image_src = "https://i.imgur.com/ZFAqmYe.png";
 
 function fetchPlants() {
     fetch(PLANTS_URL)
@@ -17,9 +18,13 @@ function fetchPlants() {
             let img = document.createElement("img");
             img.className = "plant";
             img.src = plant.image_url;
+            let tag = document.createElement("img");
+            tag.className = "tag";
+            tag.src = tag_image_src;
             let div = document.createElement("div");
             div.className = "card";
             div.appendChild(img);
+            div.appendChild(tag);
             document.querySelector("div#saved-image-container").prepend(div);
         }));
 }
