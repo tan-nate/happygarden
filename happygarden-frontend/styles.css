@@ -1,3 +1,8 @@
+body {
+    margin: 0;
+    background-color: rgb(240, 255, 254);
+    min-width: 900px;
+}
 h1#title {
     font-family: 'Indie Flower', cursive;
     text-align: center;
@@ -19,11 +24,6 @@ div#collapsible {
     margin: 0 auto;
     margin-top: -2.5em;
     text-align: center;
-}
-body {
-    margin: 0;
-    background-color: rgb(240, 255, 254);
-    min-width: 900px;
 }
 div#palette {
     display: inline-block; 
@@ -61,6 +61,7 @@ div#canvas-container.active {
 div#tag-form-container {
     background-image: url("https://i.imgur.com/FHLEo23.png");
     background-repeat: no-repeat;
+    background-size: 300px;
     width: 300px;
     position: absolute;
     overflow: hidden;
@@ -70,6 +71,10 @@ div#tag-form-container {
 }
 div#tag-form-container.active {
     max-height: 500px;
+}
+textarea#tag-notes {
+    width: 150px;
+    height: 100px;
 }
 #saved-image-container {
     display: flex;
