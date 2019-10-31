@@ -181,15 +181,14 @@ function saveCanvasAction() {
             if(includeTag) {
                 var tagData = { includeTag: true, waterFrequency: waterFrequency, notes: notes };
             } else {
-                var tagData = { includeTag: false, waterFrequency: 7, notes: null };
+                var tagData = { includeTag: false, waterFrequency: 7, notes: "" };
             }
             return tagData;
         }
 
         let dataURL = canvas.toDataURL();
 
-        let formData = Object.assign(dataURL, retrieveTagData());
-        
+        let formData = Object.assign({ imgBase64: dataURL }, retrieveTagData());
         let configObj = {
             method: "POST",
             headers: {

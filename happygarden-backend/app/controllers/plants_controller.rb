@@ -5,7 +5,7 @@ class PlantsController < ApplicationController
     end
     
     def create
-        plant = Plant.create(image_url: params[:imgBase64])
+        plant = Plant.create(image_url: params[:imgBase64], include_tag: params[:includeTag], water_frequency: params[:waterFrequency], notes: params[:notes])
         render json: PlantSerializer.new(plant).to_serialized_json
     end
 end
