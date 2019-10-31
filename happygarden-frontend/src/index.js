@@ -12,6 +12,11 @@ document.addEventListener("DOMContentLoaded", function() {
 const PLANTS_URL = "http://localhost:3000/plants";
 const tag_image_src = "https://i.imgur.com/ZFAqmYe.png";
 
+function showTag() {
+    let plantId = this.parentNode.getAttribute("data-num");
+    document.querySelector('div#show-tag-container').classList.toggle('active');
+}
+
 function fetchPlants() {
     fetch(PLANTS_URL)
         .then(resp => resp.json())
@@ -21,12 +26,14 @@ function fetchPlants() {
             img.src = plant.image_url;
             let div = document.createElement("div");
             div.className = "card";
+            div.setAttribute("data-num", plant.id);
             div.appendChild(img);
             if(plant.include_tag) {
                 let tag = document.createElement("img");
                 tag.className = "tag";
                 tag.src = tag_image_src;
                 div.appendChild(tag);
+                tag.addEventListener("click", showTag);
             }
             document.querySelector("div#saved-image-container").prepend(div);
         }));
@@ -228,6 +235,7 @@ function saveCanvasAction() {
                 img.className = "plant";
                 let div = document.createElement("div");
                 div.className = "card";
+                div.setAttribute("data-num", plant.id);
                 div.appendChild(img);
                 document.querySelector("div#saved-image-container").prepend(div);
                 if(plant.include_tag) {
@@ -235,10 +243,10 @@ function saveCanvasAction() {
                     tag.className = "tag";
                     tag.src = tag_image_src;
                     div.appendChild(tag);
+                    tag.addEventListener("click", showTag);
                 }
             });
         
         hidePlantTag();
-
     }
 }

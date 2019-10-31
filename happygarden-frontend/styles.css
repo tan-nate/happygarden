@@ -76,6 +76,22 @@ textarea#tag-notes {
     width: 150px;
     height: 100px;
 }
+div#show-tag-container {
+    background-image: url("https://i.imgur.com/FHLEo23.png");
+    background-repeat: no-repeat;
+    background-size: 300px;
+    width: 300px;
+    height: 500px;
+    position: fixed;
+    left: 0;
+    top: 142.875px;
+    overflow: hidden;
+    transition: max-width 0.3s ease-in-out;
+    max-width: 0;
+}
+div#show-tag-container.active {
+    max-width: 300px;
+}
 #saved-image-container {
     display: flex;
     flex-wrap: nowrap;
