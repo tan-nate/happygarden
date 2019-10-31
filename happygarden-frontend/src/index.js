@@ -19,13 +19,15 @@ function fetchPlants() {
             let img = document.createElement("img");
             img.className = "plant";
             img.src = plant.image_url;
-            let tag = document.createElement("img");
-            tag.className = "tag";
-            tag.src = tag_image_src;
             let div = document.createElement("div");
             div.className = "card";
             div.appendChild(img);
-            div.appendChild(tag);
+            if(plant.include_tag) {
+                let tag = document.createElement("img");
+                tag.className = "tag";
+                tag.src = tag_image_src;
+                div.appendChild(tag);
+            }
             document.querySelector("div#saved-image-container").prepend(div);
         }));
 }
@@ -66,11 +68,15 @@ function addPlantTag() {
     });
 }
 
-// Reset plant tag
 function resetPlantTag() {
     document.querySelector("input#include-tag-checkbox").checked = false;
     document.querySelector("select#include-tag-select").selectedIndex = 4;
     document.querySelector("textarea#tag-notes").value = "";
+}
+
+function hidePlantTag() {
+    document.querySelector('div#tag-form-container').classList.remove('active');
+    resetPlantTag();
 }
 
 // Create a plant
@@ -222,6 +228,15 @@ function saveCanvasAction() {
                 div.className = "card";
                 div.appendChild(img);
                 document.querySelector("div#saved-image-container").prepend(div);
+                if(plant.include_tag) {
+                    let tag = document.createElement("img");
+                    tag.className = "tag";
+                    tag.src = tag_image_src;
+                    div.appendChild(tag);
+                }
             });
+        
+        hidePlantTag();
+
     }
 }
