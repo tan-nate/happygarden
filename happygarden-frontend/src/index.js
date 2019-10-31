@@ -37,6 +37,7 @@ function activateCollapsible() {
     document.querySelector("a#plant-header").addEventListener("click", function(e) {
         e.preventDefault();
         document.querySelector('div#canvas-container').classList.toggle('active');
+        document.querySelector('div#tag-form-container').classList.remove('active');
         active = !active;
         
         if(active) {
