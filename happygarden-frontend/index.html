@@ -7,64 +7,66 @@
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="header">
-        <h1 id="title">happygarden</h1>
-    </div>
-    <div id="collapsible">
-        <a id="plant-header">
-            plant
-        </a>
-        <div id="canvas-wrapper">
-            <div id="canvas-container">
-                <div id="palette">
-                    <input type="color" id="html5colorpicker" value="#00ff00">
-                </div>
-                <div id="slidecontainer">
-                    <input type="range" id="brush-slider" min="1" max="100" value="50">
-                </div>
-                <div id="eraser">
-                    <input type="checkbox" id="erase">erase</input>
-                </div>
-                <br>
-                <br>
-                <button id="clear-canvas">clear</button>
-                <button id="save-canvas">plant!</button>
-                <button id="add-plant-tag">. . .</button>
-                <br>
-                <br>
-                <canvas id="canvas" width="260" height="450">Your browser does not support the HTML5 canvas tag.</canvas>
-            </div>
-            <div id="tag-form-wrapper">
-                <div id="tag-form-container">
+    <div id="everything-container">
+        <div id="header">
+            <h1 id="title">happygarden</h1>
+        </div>
+        <div id="collapsible">
+            <a id="plant-header">
+                plant
+            </a>
+            <div id="canvas-wrapper">
+                <div id="canvas-container">
+                    <div id="palette">
+                        <input type="color" id="html5colorpicker" value="#00ff00">
+                    </div>
+                    <div id="slidecontainer">
+                        <input type="range" id="brush-slider" min="1" max="100" value="50">
+                    </div>
+                    <div id="eraser">
+                        <input type="checkbox" id="erase">erase</input>
+                    </div>
                     <br>
                     <br>
+                    <button id="clear-canvas">clear</button>
+                    <button id="save-canvas">plant!</button>
+                    <button id="add-plant-tag">. . .</button>
                     <br>
-                    <input type="checkbox" id="include-tag-checkbox">include tag</input>
-                    <br><br>
-                    plant name: <input type="text" id="tag-name"></input>
-                    <br><br>
-                    water every 
-                        <select id="include-tag-select" selected>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7" selected>7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                        </select>
-                    days
-                    <br><br>
-                    <textarea id="tag-notes" maxlength="200" placeholder="notes:"></textarea>
+                    <br>
+                    <canvas id="canvas" width="260" height="450">Your browser does not support the HTML5 canvas tag.</canvas>
+                </div>
+                <div id="tag-form-wrapper">
+                    <div id="tag-form-container">
+                        <br>
+                        <br>
+                        <br>
+                        <input type="checkbox" id="include-tag-checkbox">include tag</input>
+                        <br><br>
+                        plant name: <input type="text" id="tag-name"></input>
+                        <br><br>
+                        water every 
+                            <select id="include-tag-select" selected>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7" selected>7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        days
+                        <br><br>
+                        <textarea id="tag-notes" maxlength="200" placeholder="notes:"></textarea>
+                    </div>
                 </div>
             </div>
         </div>
+        <div id="show-tag-container"></div>
+        <br>
     </div>
-    <div id="show-tag-container"></div>
-    <br>
     <div id="saved-image-container"></div>
     <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
     <script src="./src/index.js"></script>

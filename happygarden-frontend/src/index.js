@@ -46,7 +46,7 @@ function hideShowTag() {
 
 // Hide show tag by clicking anywhere, or by scrolling
 function hideTagsWhenScrolling() {
-    document.querySelector("div#saved-image-container").addEventListener("mousewheel", () => {
+    document.addEventListener("mousewheel", () => {
         hideShowTag();
         hideFormTag();
         hideCanvas();

@@ -1,8 +1,16 @@
+html {
+    height: 100%;
+}
 body {
     margin: 0;
+    padding: 0;
     background-color: rgb(240, 255, 254);
     min-width: 900px;
-    overflow: scroll;
+    min-height: 100%;
+}
+div#everything-container {
+    width: 100%;
+    position: fixed;
 }
 h1#title {
     font-family: 'Indie Flower', cursive;
@@ -21,7 +29,6 @@ a#plant-header {
 }
 div#collapsible {
     border-radius: 2em;
-    width: 30%;
     margin: 0 auto;
     margin-top: -2.5em;
     text-align: center;
@@ -95,12 +102,8 @@ div#show-tag-container.active {
 }
 #saved-image-container {
     display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto; 
-    background-color: rgb(240, 255, 254);
-    position: fixed;
+    position: absolute;
     bottom: 0;
-    width: 100%;
     z-index: -1;
 }
 #saved-image-container .card {
