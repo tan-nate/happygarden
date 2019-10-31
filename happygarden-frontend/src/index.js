@@ -13,24 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
 const PLANTS_URL = "http://localhost:3000/plants";
 const tag_image_src = "https://i.imgur.com/ZFAqmYe.png";
 
-function showTag() {
-    let plantId = this.parentNode.getAttribute("data-num");
-    document.querySelector('div#show-tag-container').classList.toggle('active');
-}
-
-function hideShowTag() {
-    document.querySelector('div#show-tag-container').classList.remove("active");
-}
-
-// Hide show tag by clicking anywhere, or by scrolling
-function hideTagsWhenScrolling() {
-    document.querySelector("div#saved-image-container").addEventListener("mousewheel", () => {
-        hideShowTag();
-        hideFormTag();
-        hideCanvas();
-    });
-}
-
 function fetchPlants() {
     fetch(PLANTS_URL)
         .then(resp => resp.json())
@@ -52,6 +34,26 @@ function fetchPlants() {
             document.querySelector("div#saved-image-container").prepend(div);
         }));
 }
+
+function showTag() {
+    let plantId = this.parentNode.getAttribute("data-num");
+    document.querySelector('div#show-tag-container').classList.toggle('active');
+}
+
+function hideShowTag() {
+    document.querySelector('div#show-tag-container').classList.remove("active");
+}
+
+// Hide show tag by clicking anywhere, or by scrolling
+function hideTagsWhenScrolling() {
+    document.querySelector("div#saved-image-container").addEventListener("mousewheel", () => {
+        hideShowTag();
+        hideFormTag();
+        hideCanvas();
+    });
+}
+
+
 
 // Show/hide canvas
 
