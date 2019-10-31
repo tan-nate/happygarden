@@ -46,6 +46,7 @@ function activateCollapsible() {
         }
         else {
             this.innerText = "plant";
+            resetPlantTag();
         }
     });
 }
@@ -53,10 +54,23 @@ function activateCollapsible() {
 // Show/hide plant tag
 
 function addPlantTag() {
+    let active = false;
+
     document.querySelector("button#add-plant-tag").addEventListener("click", function(e) {
         e.preventDefault();
+        active = !active;
         document.querySelector('div#tag-form-container').classList.toggle('active');
+        if(!active) {
+            resetPlantTag();
+        }
     });
+}
+
+// Reset plant tag
+function resetPlantTag() {
+    document.querySelector("input#include-tag-checkbox").checked = false;
+    document.querySelector("select#include-tag-select").selectedIndex = 4;
+    document.querySelector("textarea#tag-notes").value = "";
 }
 
 // Create a plant
