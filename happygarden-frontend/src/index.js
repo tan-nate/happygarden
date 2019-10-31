@@ -70,6 +70,7 @@ function addPlantTag() {
 
 function resetPlantTag() {
     document.querySelector("input#include-tag-checkbox").checked = false;
+    document.querySelector("input#tag-name").value = "";
     document.querySelector("select#include-tag-select").selectedIndex = 4;
     document.querySelector("textarea#tag-notes").value = "";
 }
@@ -193,15 +194,16 @@ function saveCanvasAction() {
     function saveCanvas() {
         // Retrieve tag data
         let includeTag = document.querySelector("input#include-tag-checkbox").checked;
+        let name = document.querySelector("input#tag-name").value;
         let menu = document.querySelector("select#include-tag-select");
         let waterFrequency = menu.options[menu.selectedIndex].value;
         let notes = document.querySelector("textarea#tag-notes").value;
 
         function retrieveTagData() {
             if(includeTag) {
-                var tagData = { includeTag: true, waterFrequency: waterFrequency, notes: notes };
+                var tagData = { includeTag: true, name: name, waterFrequency: waterFrequency, notes: notes };
             } else {
-                var tagData = { includeTag: false, waterFrequency: 7, notes: "" };
+                var tagData = { includeTag: false, name: "", waterFrequency: 7, notes: "" };
             }
             return tagData;
         }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_31_160942) do
+ActiveRecord::Schema.define(version: 2019_10_31_184358) do
 
   create_table "plants", force: :cascade do |t|
     t.string "image_url"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2019_10_31_160942) do
     t.boolean "include_tag"
     t.integer "water_frequency"
     t.string "notes"
+    t.string "name"
   end
 
 end
