@@ -3,6 +3,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     fetchPlants();
     activateCollapsible();
+    addPlantTag();
     saveCanvasAction();
 });
 
@@ -29,7 +30,7 @@ function fetchPlants() {
         }));
 }
 
-// Collapsible logic
+// Show/hide canvas
 
 function activateCollapsible() {
     let active = false;
@@ -49,9 +50,20 @@ function activateCollapsible() {
     });
 }
 
-// Draw on canvas
+// Show/hide plant tag
+
+function addPlantTag() {
+    document.querySelector("button#add-plant-tag").addEventListener("click", function(e) {
+        e.preventDefault();
+        document.querySelector('div#tag-form-container').classList.toggle('active');
+    });
+}
+
+// Create a plant
 
 function saveCanvasAction() {
+    // Declaring common variables
+    
     const canvas = document.getElementById("canvas");
     const stage = new createjs.Stage(canvas);
     let drawingCanvas = new createjs.Shape();
@@ -72,8 +84,10 @@ function saveCanvasAction() {
     let oldPt;
     let oldMidPt;
 
+    // Prepare canvas for drawing
     init();
 
+    // Create a plant upon clicking "plant!"
     document.querySelector("button#save-canvas").addEventListener("click", function(e) {
         e.preventDefault();
         changePotToGround();
@@ -83,11 +97,7 @@ function saveCanvasAction() {
 
     function init() {
         pot.onload = prepareCanvas;
-
-        addPlantTag();
-
         createjs.Touch.enable(stage);
-
         stage.addEventListener("stagemousedown", handleMouseDown);
         stage.addEventListener("stagemouseup", handleMouseUp);
         document.querySelector("button#clear-canvas").addEventListener("click", clearCanvas);
@@ -141,15 +151,6 @@ function saveCanvasAction() {
         stage.update();
     }
 
-    // Add plant tag
-
-    function addPlantTag() {
-        document.querySelector("button#add-plant-tag").addEventListener("click", function(e) {
-            e.preventDefault();
-            document.querySelector('div#tag-form-container').classList.toggle('active');
-        });
-    }
-
     // Save canvas image
 
     function changePotToGround() {
@@ -170,11 +171,24 @@ function saveCanvasAction() {
     }
 
     function saveCanvas() {
+        // Retrieve tag data
+        let includeTag = document.querySelector("input#include-tag-checkbox").checked;
+        let menu = document.querySelector("select#include-tag-select");
+        let waterFrequency = menu.options[menu.selectedIndex].value;
+        let notes = document.querySelector("textarea#tag-notes").value;
+
+        function retrieveTagData() {
+            if(includeTag) {
+                var tagData = { includeTag: true, waterFrequency: waterFrequency, notes: notes };
+            } else {
+                var tagData = { includeTag: false, waterFrequency: 7, notes: null };
+            }
+            return tagData;
+        }
+
         let dataURL = canvas.toDataURL();
-        
-        let formData = {
-            imgBase64: dataURL
-        };
+
+        let formData = Object.assign(dataURL, retrieveTagData());
         
         let configObj = {
             method: "POST",
