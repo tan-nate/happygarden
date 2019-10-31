@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchPlants();
     activateCollapsible();
     addPlantTag();
+    hideTagsWhenScrolling();
     saveCanvasAction();
 });
 
@@ -15,6 +16,19 @@ const tag_image_src = "https://i.imgur.com/ZFAqmYe.png";
 function showTag() {
     let plantId = this.parentNode.getAttribute("data-num");
     document.querySelector('div#show-tag-container').classList.toggle('active');
+}
+
+function hideShowTag() {
+    document.querySelector('div#show-tag-container').classList.remove("active");
+}
+
+// Hide show tag by clicking anywhere, or by scrolling
+function hideTagsWhenScrolling() {
+    document.querySelector("div#saved-image-container").addEventListener("mousewheel", () => {
+        hideShowTag();
+        hideFormTag();
+        hideCanvas();
+    });
 }
 
 function fetchPlants() {
@@ -41,21 +55,21 @@ function fetchPlants() {
 
 // Show/hide canvas
 
-function activateCollapsible() {
-    let active = false;
+function hideCanvas() {
+    document.querySelector('div#canvas-container').classList.remove('active');
+    document.querySelector("a#plant-header").innerText = "plant";
+    resetPlantTag();
+}
 
-    document.querySelector("a#plant-header").addEventListener("click", function(e) {
-        e.preventDefault();
-        document.querySelector('div#canvas-container').classList.toggle('active');
-        document.querySelector('div#tag-form-container').classList.remove('active');
-        active = !active;
-        
-        if(active) {
+function activateCollapsible() {
+    document.querySelector("a#plant-header").addEventListener("click", function() {
+        hideShowTag();
+        if(this.innerText = "plant") {
             this.innerText = "hide";
-        }
-        else {
-            this.innerText = "plant";
-            resetPlantTag();
+            document.querySelector('div#canvas-container').classList.toggle('active');
+            document.querySelector('div#tag-form-container').classList.remove('active');
+        } else {
+            hideCanvas();
         }
     });
 }
@@ -82,7 +96,7 @@ function resetPlantTag() {
     document.querySelector("textarea#tag-notes").value = "";
 }
 
-function hidePlantTag() {
+function hideFormTag() {
     document.querySelector('div#tag-form-container').classList.remove('active');
     resetPlantTag();
 }
@@ -247,6 +261,6 @@ function saveCanvasAction() {
                 }
             });
         
-        hidePlantTag();
+        hideFormTag();
     }
 }
