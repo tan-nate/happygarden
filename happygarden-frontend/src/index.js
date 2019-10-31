@@ -55,20 +55,24 @@ function fetchPlants() {
 
 // Show/hide canvas
 
+let canvasActive = false;
+
 function hideCanvas() {
     document.querySelector('div#canvas-container').classList.remove('active');
     document.querySelector("a#plant-header").innerText = "plant";
     resetPlantTag();
+    canvasActive = false;
 }
 
 function activateCollapsible() {
     document.querySelector("a#plant-header").addEventListener("click", function() {
+        canvasActive = !canvasActive;
         hideShowTag();
-        if(this.innerText = "plant") {
+        if(canvasActive) {
             this.innerText = "hide";
             document.querySelector('div#canvas-container').classList.toggle('active');
-            document.querySelector('div#tag-form-container').classList.remove('active');
         } else {
+            hideFormTag();
             hideCanvas();
         }
     });
