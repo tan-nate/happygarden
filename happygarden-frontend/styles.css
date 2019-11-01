@@ -7,6 +7,16 @@ body {
     background-color: rgb(240, 255, 254);
     min-width: 900px;
     min-height: 100%;
+    font-family: 'Bree Serif', serif;
+}
+button, textarea, input {
+    background: transparent;
+    border: none;
+    font-family: 'Bree Serif', serif;
+    font-size: 1em;
+}
+input {
+    max-width: 130px;
 }
 div#everything-container {
     width: 100%;

@@ -72,11 +72,6 @@ function activateCollapsible() {
     document.querySelector("a#plant-header").addEventListener("click", function() {
         canvasActive = !canvasActive;
         hideShowTag();
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
         if(canvasActive) {
             this.innerText = "hide";
             document.querySelector('div#canvas-container').classList.toggle('active');
@@ -145,6 +140,11 @@ function saveCanvasAction() {
     // Create a plant upon clicking "plant!"
     document.querySelector("button#save-canvas").addEventListener("click", function(e) {
         e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
         changePotToGround();
         saveCanvas();
         changeGroundToPot();
