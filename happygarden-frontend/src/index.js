@@ -74,7 +74,7 @@ function activateCollapsible() {
         hideShowTag();
         window.scrollTo({
             top: 0,
-            left: 100,
+            left: 0,
             behavior: 'smooth'
         });
         if(canvasActive) {
