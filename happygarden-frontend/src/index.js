@@ -39,7 +39,19 @@ function showTag() {
     hideCanvas();
     hideFormTag();
     let plantId = this.parentNode.getAttribute("data-num");
-    document.querySelector('div#show-tag-container').classList.add('active');
+    let container = document.querySelector('div#show-tag-container')
+    container.classList.add('active');
+    fetch(`${PLANTS_URL}/${plantId}`)
+        .then(resp => resp.json())
+        .then(function(plant) {
+            let name = plant.name;
+            let notes = plant.notes;
+            let nameE = document.createElement("p");
+            nameE.innerText = name;
+            let notesE = document.createElement("p");
+            notesE.innerText = notes;
+            [nameE, notesE].forEach(e => document.querySelector("div#show-tag-container").appendChild(e));
+        });    
 }
 
 function hideShowTag() {
