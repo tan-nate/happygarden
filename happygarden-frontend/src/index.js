@@ -72,6 +72,11 @@ function activateCollapsible() {
     document.querySelector("a#plant-header").addEventListener("click", function() {
         canvasActive = !canvasActive;
         hideShowTag();
+        window.scrollTo({
+            top: 0,
+            left: 100,
+            behavior: 'smooth'
+        });
         if(canvasActive) {
             this.innerText = "hide";
             document.querySelector('div#canvas-container').classList.toggle('active');
