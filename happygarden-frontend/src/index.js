@@ -36,8 +36,10 @@ function fetchPlants() {
 }
 
 function showTag() {
+    hideCanvas();
+    hideFormTag();
     let plantId = this.parentNode.getAttribute("data-num");
-    document.querySelector('div#show-tag-container').classList.toggle('active');
+    document.querySelector('div#show-tag-container').classList.add('active');
 }
 
 function hideShowTag() {

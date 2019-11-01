@@ -119,4 +119,5 @@ img.tag {
     margin-left: 20px;
     width: 50px;
     height: auto;
+    z-index: 3;
 }
