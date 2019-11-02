@@ -4,7 +4,9 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background-color: rgb(240, 255, 254);
+    background-image: url("https://i.imgur.com/UwpTCnt.png");
+    background-position: left bottom;
+    background-attachment: fixed;
     min-width: 900px;
     min-height: 100%;
     font-family: 'Bree Serif', serif;
