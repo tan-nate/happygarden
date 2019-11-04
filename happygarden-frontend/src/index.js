@@ -40,12 +40,14 @@ function showTag() {
     hideCanvas();
     hideFormTag();
     let plantId = this.parentNode.getAttribute("data-num");
-    let container = document.querySelector('div#show-tag-container')
+    let container = document.querySelector('div#show-tag-container');
+    Element
     container.classList.add('active');
     fetch(`${PLANTS_URL}/${plantId}`)
         .then(resp => resp.json())
         .then(function(plant) {
             document.querySelector("div#show-tag-container").innerHTML = "<br><br><br>";
+            document.querySelector("div#show-tag-container").setAttribute("data-num", plantId);
             let name = plant.name;
             let notes = plant.notes;
             let nameE = document.createElement("p");
@@ -82,6 +84,8 @@ function hideTagsWhenScrolling() {
 }
 
 function showPlantComments() {
+    let plantId = this.parentNode.getAttribute("data-num");
+
     let showTagContainer = document.querySelector('div#show-tag-container');
     showTagContainer.innerHTML = "<br><br>";
 
@@ -103,7 +107,7 @@ function showPlantComments() {
     addButton.style = "bottom: 150px; right: 130px; position: absolute;"
     addButton.addEventListener("click", postComment);
 
-    [commentsTitle, document.createElement("br"), ul, document.createElement("br"), addComment, addButton].forEach(e => showTagContainer.appendChild(e));
+    [commentsTitle, ul, document.createElement("br"), addComment, addButton].forEach(e => showTagContainer.appendChild(e));
 
     function postComment() {
         class Comment {
@@ -113,7 +117,7 @@ function showPlantComments() {
         }
         let comment = new Comment(addComment.value);
 
-        let formData = { comment: comment.content };
+        let formData = { content: comment.content, plant_id: plantId };
         let configObj = {
             method: "POST",
             headers: {
