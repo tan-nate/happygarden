@@ -96,7 +96,7 @@ function showPlantComments() {
     addButton = document.createElement("button");
     addButton.id = "add-comment-button";
     addButton.innerText = "add!";
-    addButton.style = "bottom: 180px; right: 130px; position: absolute;"
+    addButton.style = "bottom: 150px; right: 130px; position: absolute;"
     addButton.addEventListener("click", postComment);
     showTagContainer.appendChild(addButton);
 
