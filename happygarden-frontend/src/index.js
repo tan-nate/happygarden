@@ -58,7 +58,7 @@ function showTag() {
             let rotate = document.createElement("img");
             rotate.src = "https://i.imgur.com/3Y2med9.png";
             rotate.id = "rotate-icon";
-            rotate.style = "width: 10%; bottom: 100px; right: 130px; position: absolute;"
+            rotate.style = "width: 10%; bottom: 100px; right: 135px; position: absolute;"
             rotate.addEventListener("click", showPlantComments);
             function appendFunction() {
                 [nameE, br, notesE, rotate].forEach(e => document.querySelector("div#show-tag-container").appendChild(e));
@@ -84,24 +84,52 @@ function hideTagsWhenScrolling() {
 function showPlantComments() {
     let showTagContainer = document.querySelector('div#show-tag-container');
     showTagContainer.innerHTML = "<br><br>";
+
     let commentsTitle = document.createElement("p");
     commentsTitle.innerText = "comments:";
-    showTagContainer.appendChild(commentsTitle);
-    showTagContainer.appendChild(document.createElement("br"));
+    commentsTitle.style = "text-decoration: underline;"
+
+    let ul = document.createElement("ul");
+    ul.style = "width: 60%; padding: 0; margin: 0 auto; list-style-type: none;"
+
     let addComment = document.createElement("input");
     addComment.type = "text";
     addComment.maxLength = "50";
     addComment.placeholder = "add a comment:";
-    showTagContainer.appendChild(addComment);
-    addButton = document.createElement("button");
+
+    let addButton = document.createElement("button");
     addButton.id = "add-comment-button";
     addButton.innerText = "add!";
     addButton.style = "bottom: 150px; right: 130px; position: absolute;"
     addButton.addEventListener("click", postComment);
-    showTagContainer.appendChild(addButton);
+
+    [commentsTitle, document.createElement("br"), ul, document.createElement("br"), addComment, addButton].forEach(e => showTagContainer.appendChild(e));
 
     function postComment() {
+        class Comment {
+            constructor(content) {
+                this.content = content;
+            }
+        }
+        let comment = new Comment(addComment.value);
 
+        let formData = { comment: comment.content };
+        let configObj = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(formData)
+        };
+
+        fetch("http://localhost:3000/comments", configObj);
+
+        let li = document.createElement("li");
+        li.innerText = comment.content;
+        ul.appendChild(li);
+        addComment.style = "display: none;";
+        addButton.style = "display: none;";
     }
 }
 
