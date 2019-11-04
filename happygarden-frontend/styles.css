@@ -9,8 +9,8 @@ body {
     background-attachment: fixed;
     background-repeat: repeat-x;
     background-color: #f0fffe;
-    min-width: 900px;
-    min-height: 100%;
+    /* min-width: 900px;
+    min-height: 100%; */
     font-family: 'Bree Serif', serif;
 }
 button, textarea, input {
@@ -37,6 +37,7 @@ img#sun {
     position: fixed;
     right: -200px;
     top: -150px;
+    z-index: -1;
 }
 a#plant-header {
     font-family: 'Indie Flower', cursive;
@@ -75,7 +76,7 @@ div#tag-form-wrapper {
     vertical-align: top;
 }
 div#canvas-container {
-    z-index: 1;
+    z-index: 5;
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
     height: auto;
@@ -86,7 +87,7 @@ div#canvas-container.active {
     max-height: 600px;
 }
 div#tag-form-container {
-    background-image: url("https://i.imgur.com/FHLEo23.png");
+    background-image: url("https://i.imgur.com/bP0Iz17.png");
     background-repeat: no-repeat;
     background-size: 300px;
     width: 300px;
@@ -104,7 +105,7 @@ textarea#tag-notes {
     height: 100px;
 }
 div#show-tag-container {
-    background-image: url("https://i.imgur.com/FHLEo23.png");
+    background-image: url("https://i.imgur.com/bP0Iz17.png");
     background-repeat: no-repeat;
     background-size: 300px;
     width: 300px;

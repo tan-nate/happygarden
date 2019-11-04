@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // Fetch all plants
 
 const PLANTS_URL = "http://localhost:3000/plants";
-const tag_image_src = "https://i.imgur.com/ZFAqmYe.png";
+const tag_image_src = "https://i.imgur.com/vTRPN0A.png";
 
 function fetchPlants() {
     fetch(PLANTS_URL)
@@ -36,6 +36,7 @@ function fetchPlants() {
 }
 
 function showTag() {
+    hideShowTag();
     hideCanvas();
     hideFormTag();
     let plantId = this.parentNode.getAttribute("data-num");
@@ -55,6 +56,7 @@ function showTag() {
 }
 
 function hideShowTag() {
+    document.querySelector('div#show-tag-container').innerHTML = "";
     document.querySelector('div#show-tag-container').classList.remove("active");
 }
 
@@ -133,7 +135,7 @@ function saveCanvasAction() {
 
     const pot = new Image;
     pot.crossOrigin = "anonymous";
-    pot.src = "https://i.imgur.com/8109gmp.png";
+    pot.src = "https://i.imgur.com/M1GHzVq.png";
     const bmp = new createjs.Bitmap(pot);
 
     const ground = new Image;
@@ -276,7 +278,6 @@ function saveCanvasAction() {
                 div.className = "card";
                 div.setAttribute("data-num", plant.id);
                 div.appendChild(img);
-                document.querySelector("div#saved-image-container").prepend(div);
                 if(plant.include_tag) {
                     let tag = document.createElement("img");
                     tag.className = "tag";
@@ -284,6 +285,7 @@ function saveCanvasAction() {
                     div.appendChild(tag);
                     tag.addEventListener("click", showTag);
                 }
+                document.querySelector("div#saved-image-container").prepend(div);
             });
         
         hideFormTag();
