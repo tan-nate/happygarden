@@ -94,13 +94,14 @@ function showPlantComments() {
     addComment.placeholder = "add a comment:";
     showTagContainer.appendChild(addComment);
     addButton = document.createElement("button");
+    addButton.id = "add-comment-button";
     addButton.innerText = "add!";
-    addButton.style = "bottom: 200px; right: 130px; position: absolute;"
+    addButton.style = "bottom: 180px; right: 130px; position: absolute;"
     addButton.addEventListener("click", postComment);
     showTagContainer.appendChild(addButton);
 
     function postComment() {
-        
+
     }
 }
 

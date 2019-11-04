@@ -20,7 +20,7 @@ button, textarea, input {
     font-size: 1em;
     resize: none;
 }
-button {
+button#save-canvas, button#add-comment-button {
     color: rgb(0, 119, 255);
 }
 select {
