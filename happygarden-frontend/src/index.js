@@ -45,13 +45,20 @@ function showTag() {
     fetch(`${PLANTS_URL}/${plantId}`)
         .then(resp => resp.json())
         .then(function(plant) {
+            document.querySelector("div#show-tag-container").innerHTML = "<br><br><br>";
             let name = plant.name;
             let notes = plant.notes;
             let nameE = document.createElement("p");
+            nameE.style = "width: 70%; margin: 0 auto; font-size: 1.3em;"
             nameE.innerText = name;
             let notesE = document.createElement("p");
+            notesE.style = "width: 70%; margin: 0 auto;"
             notesE.innerText = notes;
-            [nameE, notesE].forEach(e => document.querySelector("div#show-tag-container").appendChild(e));
+            let br = document.createElement("br");
+            function appendFunction() {
+                [nameE, br, notesE].forEach(e => document.querySelector("div#show-tag-container").appendChild(e));
+            }
+            setTimeout(appendFunction, 300);
         });    
 }
 

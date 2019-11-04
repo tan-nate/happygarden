@@ -18,6 +18,7 @@ button, textarea, input {
     border: none;
     font-family: 'Bree Serif', serif;
     font-size: 1em;
+    resize: none;
 }
 input {
     max-width: 130px;
@@ -116,6 +117,7 @@ div#show-tag-container {
     overflow: hidden;
     transition: max-width 0.3s ease-in-out;
     max-width: 0;
+    text-align: center;
 }
 div#show-tag-container.active {
     max-width: 300px;
