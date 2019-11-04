@@ -20,6 +20,12 @@ button, textarea, input {
     font-size: 1em;
     resize: none;
 }
+button {
+    color: rgb(0, 119, 255);
+}
+select {
+    display: none;
+}
 input {
     max-width: 130px;
 }
@@ -91,6 +97,7 @@ div#tag-form-container {
     background-image: url("https://i.imgur.com/bP0Iz17.png");
     background-repeat: no-repeat;
     background-size: 300px;
+    background-position: left 5px;
     width: 300px;
     position: absolute;
     overflow: hidden;
@@ -109,6 +116,7 @@ div#show-tag-container {
     background-image: url("https://i.imgur.com/bP0Iz17.png");
     background-repeat: no-repeat;
     background-size: 300px;
+    background-position: left 5px;
     width: 300px;
     height: 500px;
     position: absolute;

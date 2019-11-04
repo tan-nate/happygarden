@@ -55,8 +55,13 @@ function showTag() {
             notesE.style = "width: 70%; margin: 0 auto;"
             notesE.innerText = notes;
             let br = document.createElement("br");
+            let rotate = document.createElement("img");
+            rotate.src = "https://i.imgur.com/3Y2med9.png";
+            rotate.id = "rotate-icon";
+            rotate.style = "width: 10%; bottom: 100px; right: 130px; position: absolute;"
+            rotate.addEventListener("click", showPlantComments);
             function appendFunction() {
-                [nameE, br, notesE].forEach(e => document.querySelector("div#show-tag-container").appendChild(e));
+                [nameE, br, notesE, rotate].forEach(e => document.querySelector("div#show-tag-container").appendChild(e));
             }
             setTimeout(appendFunction, 300);
         });    
@@ -67,7 +72,7 @@ function hideShowTag() {
     document.querySelector('div#show-tag-container').classList.remove("active");
 }
 
-// Hide show tag by clicking anywhere, or by scrolling
+// Hide show tag by scrolling
 function hideTagsWhenScrolling() {
     document.addEventListener("mousewheel", () => {
         hideShowTag();
@@ -76,7 +81,28 @@ function hideTagsWhenScrolling() {
     });
 }
 
+function showPlantComments() {
+    let showTagContainer = document.querySelector('div#show-tag-container');
+    showTagContainer.innerHTML = "<br><br>";
+    let commentsTitle = document.createElement("p");
+    commentsTitle.innerText = "comments:";
+    showTagContainer.appendChild(commentsTitle);
+    showTagContainer.appendChild(document.createElement("br"));
+    let addComment = document.createElement("input");
+    addComment.type = "text";
+    addComment.maxLength = "50";
+    addComment.placeholder = "add a comment:";
+    showTagContainer.appendChild(addComment);
+    addButton = document.createElement("button");
+    addButton.innerText = "add!";
+    addButton.style = "bottom: 200px; right: 130px; position: absolute;"
+    addButton.addEventListener("click", postComment);
+    showTagContainer.appendChild(addButton);
 
+    function postComment() {
+        
+    }
+}
 
 // Show/hide canvas
 
