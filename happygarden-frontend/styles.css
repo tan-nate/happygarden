@@ -4,10 +4,6 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background-image: url("https://i.imgur.com/UwpTCnt.png");
-    background-position: left bottom;
-    background-attachment: fixed;
-    background-repeat: repeat-x;
     background-color: #f0fffe;
     min-width: 900px;
     min-height: 100%;
@@ -119,6 +115,14 @@ div#show-tag-container {
 div#show-tag-container.active {
     max-width: 300px;
 }
+#saved-image-wrapper {
+    /* The height needs to be set to a fixed value for the effect to work. 100vh is the full height of the viewport. */
+    height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* Set the perspective to 2px. This is essentailly the simulated distance from the viewport to transformed objects.*/
+    perspective: 2px;
+}
 #saved-image-container {
     display: flex;
     position: absolute;
@@ -128,6 +132,20 @@ div#show-tag-container.active {
 #saved-image-container .card {
     flex: 0 0 auto; 
     margin-top: -50px;
+}
+.parallax::after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 170%;
+    transform: translateZ(-1px);
+    z-index: -1;
+    background-image: url(https://i.imgur.com/UwpTCnt.png);
+    background-position: left bottom;
+    background-repeat: repeat-x;
 }
 img.plant {
     display: block;
