@@ -180,7 +180,6 @@ function plantTagFormCollapsible() {
 function resetPlantTagForm() {
     document.querySelector("input#include-tag-checkbox").checked = false;
     document.querySelector("input#tag-name").value = "";
-    document.querySelector("select#include-tag-select").selectedIndex = 4;
     document.querySelector("textarea#tag-notes").value = "";
 }
 
