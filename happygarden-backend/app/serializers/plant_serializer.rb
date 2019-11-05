@@ -12,7 +12,8 @@ class PlantSerializer
         options = {
             except: [:created_at, :updated_at]
         }
-        options[:last_3_comments] = @plant.last_3_comments
+        options[:include] = {}
+        options[:include][:last_3_comments] = @plant.last_3_comments
         @plant.to_json(options)
     end
 end
