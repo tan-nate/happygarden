@@ -1,17 +1,15 @@
 // Initiate script
-
 document.addEventListener("DOMContentLoaded", function() {
     fetchPlants();
-    activateCollapsible();
-    addPlantTag();
-    hideTagsWhenScrolling();
-    saveCanvasAction();
+    canvasCollapsible();
+    plantTagFormCollapsible();
+    hideElementsWhenScrolling();
+    createPlant();
 });
 
 // Fetch all plants
-
 const PLANTS_URL = "http://localhost:3000/plants";
-const tag_image_src = "https://i.imgur.com/vTRPN0A.png";
+const TAG_IMAGE_SRC = "https://i.imgur.com/vTRPN0A.png";
 
 function fetchPlants() {
     fetch(PLANTS_URL)
@@ -27,7 +25,7 @@ function fetchPlants() {
             if(plant.include_tag) {
                 let tag = document.createElement("img");
                 tag.className = "tag";
-                tag.src = tag_image_src;
+                tag.src = TAG_IMAGE_SRC;
                 div.appendChild(tag);
                 tag.addEventListener("click", showTag);
             }
@@ -35,54 +33,42 @@ function fetchPlants() {
         }));
 }
 
+// Show plant's tag
 function showTag() {
-    hideShowTag();
+    hideTag();
     hideCanvas();
-    hideFormTag();
+    hideTagForm();
     let plantId = this.parentNode.getAttribute("data-num");
     let container = document.querySelector('div#show-tag-container');
-    Element
     container.classList.add('active');
     fetch(`${PLANTS_URL}/${plantId}`)
         .then(resp => resp.json())
         .then(function(plant) {
             document.querySelector("div#show-tag-container").innerHTML = "<br><br><br>";
             document.querySelector("div#show-tag-container").setAttribute("data-num", plantId);
-            let name = plant.name;
-            let notes = plant.notes;
             let nameE = document.createElement("p");
-            nameE.style = "width: 70%; margin: 0 auto; font-size: 1.3em;"
-            nameE.innerText = name;
+            nameE.id = "plant-name";
+            nameE.innerText = plant.name;
             let notesE = document.createElement("p");
-            notesE.style = "width: 70%; margin: 0 auto;"
-            notesE.innerText = notes;
-            let br = document.createElement("br");
+            notesE.id = "plant-notes";
+            notesE.innerText = plant.notes;
             let rotate = document.createElement("img");
             rotate.src = "https://i.imgur.com/3Y2med9.png";
             rotate.id = "rotate-icon";
-            rotate.style = "width: 10%; bottom: 100px; right: 135px; position: absolute;"
             rotate.addEventListener("click", showPlantComments);
             function appendFunction() {
-                [nameE, br, notesE, rotate].forEach(e => document.querySelector("div#show-tag-container").appendChild(e));
+                [nameE, document.createElement("br"), notesE, rotate].forEach(e => document.querySelector("div#show-tag-container").appendChild(e));
             }
             setTimeout(appendFunction, 300);
         });
 }
 
-function hideShowTag() {
+function hideTag() {
     document.querySelector('div#show-tag-container').innerHTML = "";
     document.querySelector('div#show-tag-container').classList.remove("active");
 }
 
-// Hide show tag by scrolling
-function hideTagsWhenScrolling() {
-    document.addEventListener("mousewheel", () => {
-        hideShowTag();
-        hideFormTag();
-        hideCanvas();
-    });
-}
-
+// Show plant's comments
 function showPlantComments() {
     const COMMENTS_URL = "http://localhost:3000/comments"
 
@@ -93,10 +79,10 @@ function showPlantComments() {
 
     let commentsTitle = document.createElement("p");
     commentsTitle.innerText = "comments:";
-    commentsTitle.style = "text-decoration: underline;"
+    commentsTitle.id = "comments-title";
 
     let ul = document.createElement("ul");
-    ul.style = "width: 60%; padding: 0; margin: 0 auto; list-style-type: none;"
+    ul.id = "comments-ul";
 
     fetch(`${PLANTS_URL}/${plantId}`)
         .then(resp => resp.json())
@@ -117,7 +103,6 @@ function showPlantComments() {
     let addButton = document.createElement("button");
     addButton.id = "add-comment-button";
     addButton.innerText = "add!";
-    addButton.style = "bottom: 120px; right: 130px; position: absolute;"
     addButton.addEventListener("click", postComment);
 
     [commentsTitle, ul, document.createElement("br"), addComment, addButton].forEach(e => showTagContainer.appendChild(e));
@@ -153,62 +138,65 @@ function showPlantComments() {
 }
 
 // Show/hide canvas
-
 let canvasActive = false;
 
 function hideCanvas() {
     document.querySelector('div#canvas-container').classList.remove('active');
     document.querySelector("a#plant-header").innerText = "plant";
-    resetPlantTag();
+    resetPlantTagForm();
     canvasActive = false;
 }
 
-function activateCollapsible() {
+function canvasCollapsible() {
     document.querySelector("a#plant-header").addEventListener("click", function() {
         canvasActive = !canvasActive;
-        hideShowTag();
+        hideTag();
         if(canvasActive) {
             this.innerText = "hide";
-            document.querySelector('div#canvas-container').classList.toggle('active');
+            document.querySelector('div#canvas-container').classList.add('active');
         } else {
-            hideFormTag();
+            hideTagForm();
             hideCanvas();
         }
     });
 }
 
-// Show/hide plant tag
-
-function addPlantTag() {
+// Show/hide plant tag form
+function plantTagFormCollapsible() {
     let active = false;
 
-    document.querySelector("button#add-plant-tag").addEventListener("click", function(e) {
-        e.preventDefault();
+    document.querySelector("button#add-plant-tag").addEventListener("click", function() {
         active = !active;
         document.querySelector('div#tag-form-container').classList.toggle('active');
         if(!active) {
-            resetPlantTag();
+            resetPlantTagForm();
         }
     });
 }
 
-function resetPlantTag() {
+function resetPlantTagForm() {
     document.querySelector("input#include-tag-checkbox").checked = false;
     document.querySelector("input#tag-name").value = "";
     document.querySelector("select#include-tag-select").selectedIndex = 4;
     document.querySelector("textarea#tag-notes").value = "";
 }
 
-function hideFormTag() {
+function hideTagForm() {
     document.querySelector('div#tag-form-container').classList.remove('active');
-    resetPlantTag();
+    resetPlantTagForm();
+}
+
+// Hide elements when scrolling
+function hideElementsWhenScrolling() {
+    document.addEventListener("mousewheel", () => {
+        hideTag();
+        hideTagForm();
+        hideCanvas();
+    });
 }
 
 // Create a plant
-
-function saveCanvasAction() {
-    // Declaring common variables
-    
+function createPlant() {
     const canvas = document.getElementById("canvas");
     const stage = new createjs.Stage(canvas);
     let drawingCanvas = new createjs.Shape();
@@ -229,12 +217,11 @@ function saveCanvasAction() {
     let oldPt;
     let oldMidPt;
 
-    // Prepare canvas for drawing
+    // Initiate functions below to allow for drawing. Only initiate canvas once pot has loaded. 
     init();
 
     // Create a plant upon clicking "plant!"
-    document.querySelector("button#save-canvas").addEventListener("click", function(e) {
-        e.preventDefault();
+    document.querySelector("button#save-canvas").addEventListener("click", function() {
         window.scrollTo({
             top: 0,
             left: 0,
@@ -302,7 +289,6 @@ function saveCanvasAction() {
     }
 
     // Save canvas image
-
     function changePotToGround() {
         stage.removeAllChildren();
         stage.addChild(drawingCanvas).y = 140;
@@ -324,15 +310,23 @@ function saveCanvasAction() {
         // Retrieve tag data
         let includeTag = document.querySelector("input#include-tag-checkbox").checked;
         let name = document.querySelector("input#tag-name").value;
-        let menu = document.querySelector("select#include-tag-select");
-        let waterFrequency = menu.options[menu.selectedIndex].value;
         let notes = document.querySelector("textarea#tag-notes").value;
 
+        class Plant {
+            constructor(includeTag, name, notes) {
+                this.includeTag = includeTag;
+                this.name = name;
+                this.notes = notes;
+            }
+        }
+
+        plant = new Plant(includeTag, name, notes);
+        
         function retrieveTagData() {
-            if(includeTag) {
-                var tagData = { includeTag: true, name: name, waterFrequency: waterFrequency, notes: notes };
+            if(plant.includeTag) {
+                var tagData = { includeTag: true, name: plant.name, notes: plant.notes };
             } else {
-                var tagData = { includeTag: false, name: "", waterFrequency: 7, notes: "" };
+                var tagData = { includeTag: false };
             }
             return tagData;
         }
@@ -362,13 +356,13 @@ function saveCanvasAction() {
                 if(plant.include_tag) {
                     let tag = document.createElement("img");
                     tag.className = "tag";
-                    tag.src = tag_image_src;
+                    tag.src = TAG_IMAGE_SRC;
                     div.appendChild(tag);
                     tag.addEventListener("click", showTag);
                 }
                 document.querySelector("div#saved-image-container").prepend(div);
             });
         
-        hideFormTag();
+        hideTagForm();
     }
 }
