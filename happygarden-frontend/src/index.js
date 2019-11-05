@@ -101,6 +101,7 @@ function showPlantComments() {
     fetch(`${PLANTS_URL}/${plantId}`)
         .then(resp => resp.json())
         .then(function(plant) {
+            debugger
             plant.last_3_comments.forEach(function(comment) {
                 let li = document.createElement("li");
                 li.innerText = comment.content;

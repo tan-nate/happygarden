@@ -11,6 +11,6 @@ class PlantsController < ApplicationController
 
     def show
         plant = Plant.find(params[:id])
-        render json: PlantSerializer.new(plant).to_serialized_json
+        render json: PlantSerializer.new(plant).to_serialized_json_for_show_action_to_show_comments
     end
 end
