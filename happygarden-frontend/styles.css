@@ -9,8 +9,6 @@ body {
     background-attachment: fixed;
     background-repeat: repeat-x;
     background-color: #f0fffe;
-    /* min-width: 900px;
-    min-height: 100%; */
     font-family: 'Bree Serif', serif;
 }
 button, textarea, input {
@@ -127,8 +125,37 @@ div#show-tag-container {
     max-width: 0;
     text-align: center;
 }
+p#plant-name {
+    width: 70%; 
+    margin: 0 auto; 
+    font-size: 1.3em;
+}
+p#plant-notes {
+    width: 70%; 
+    margin: 0 auto;
+}
+img#rotate-icon {
+    width: 10%; 
+    bottom: 100px; 
+    right: 135px; 
+    position: absolute;
+}
+p#comments-title {
+    text-decoration: underline;
+}
+ul#comments-ul {
+    width: 60%; 
+    padding: 0; 
+    margin: 0 auto; 
+    list-style-type: none;
+}
 li.comment {
     margin: 5px;
+}
+button#add-comment-button {
+    bottom: 120px; 
+    right: 130px; 
+    position: absolute;
 }
 div#show-tag-container.active {
     max-width: 300px;
