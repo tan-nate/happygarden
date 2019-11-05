@@ -9,8 +9,6 @@ body {
     background-attachment: fixed;
     background-repeat: repeat-x;
     background-color: #f0fffe;
-    /* min-width: 900px;
-    min-height: 100%; */
     font-family: 'Bree Serif', serif;
 }
 button, textarea, input {

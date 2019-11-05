@@ -106,7 +106,8 @@ function showPlantComments() {
     addButton.addEventListener("click", postComment);
 
     [commentsTitle, ul, document.createElement("br"), addComment, addButton].forEach(e => showTagContainer.appendChild(e));
-
+    
+    // Post comments
     function postComment() {
         class Comment {
             constructor(content) {
@@ -130,8 +131,10 @@ function showPlantComments() {
         let li = document.createElement("li");
         li.innerText = comment.content;
         li.className = "comment";
+        if(ul.childElementCount === 3) {
+            ul.firstChild.remove();
+        }
         ul.appendChild(li);
-        ul.firstChild.remove();
         addComment.style = "display: none;";
         addButton.style = "display: none;";
     }
@@ -324,16 +327,17 @@ function createPlant() {
         
         function retrieveTagData() {
             if(plant.includeTag) {
-                var tagData = { includeTag: true, name: plant.name, notes: plant.notes };
+                var tagData = { include_tag: true, name: plant.name, notes: plant.notes };
             } else {
-                var tagData = { includeTag: false };
+                var tagData = { include_tag: false };
             }
             return tagData;
         }
 
+        // Retrieve canvas data
         let dataURL = canvas.toDataURL();
 
-        let formData = Object.assign({ imgBase64: dataURL }, retrieveTagData());
+        let formData = Object.assign({ image_url: dataURL }, retrieveTagData());
         let configObj = {
             method: "POST",
             headers: {
@@ -343,6 +347,7 @@ function createPlant() {
             body: JSON.stringify(formData)
         };
         
+        // Is it preferred to use this method, or the previously defined javascript object, to create the plant?
         fetch(PLANTS_URL, configObj)
             .then(response => response.json())
             .then(function(plant) {
