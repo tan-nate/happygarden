@@ -10,10 +10,9 @@ class PlantSerializer
     end
     def to_serialized_json_for_show_action_to_show_comments
         options = {
+            methods: :last_3_comments,
             except: [:created_at, :updated_at]
         }
-        options[:include] = {}
-        options[:include][:last_3_comments] = @plant.last_3_comments
         @plant.to_json(options)
     end
 end

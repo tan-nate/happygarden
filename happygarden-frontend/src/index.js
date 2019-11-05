@@ -101,10 +101,10 @@ function showPlantComments() {
     fetch(`${PLANTS_URL}/${plantId}`)
         .then(resp => resp.json())
         .then(function(plant) {
-            debugger
             plant.last_3_comments.forEach(function(comment) {
                 let li = document.createElement("li");
                 li.innerText = comment.content;
+                li.className = "comment";
                 ul.appendChild(li);
             });
         });
@@ -117,7 +117,7 @@ function showPlantComments() {
     let addButton = document.createElement("button");
     addButton.id = "add-comment-button";
     addButton.innerText = "add!";
-    addButton.style = "bottom: 150px; right: 130px; position: absolute;"
+    addButton.style = "bottom: 120px; right: 130px; position: absolute;"
     addButton.addEventListener("click", postComment);
 
     [commentsTitle, ul, document.createElement("br"), addComment, addButton].forEach(e => showTagContainer.appendChild(e));
@@ -144,7 +144,9 @@ function showPlantComments() {
 
         let li = document.createElement("li");
         li.innerText = comment.content;
+        li.className = "comment";
         ul.appendChild(li);
+        ul.firstChild.remove();
         addComment.style = "display: none;";
         addButton.style = "display: none;";
     }

@@ -127,6 +127,9 @@ div#show-tag-container {
     max-width: 0;
     text-align: center;
 }
+li.comment {
+    margin: 5px;
+}
 div#show-tag-container.active {
     max-width: 300px;
 }
