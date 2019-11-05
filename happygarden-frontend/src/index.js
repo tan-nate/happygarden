@@ -66,7 +66,7 @@ function showTag() {
                 [nameE, br, notesE, rotate].forEach(e => document.querySelector("div#show-tag-container").appendChild(e));
             }
             setTimeout(appendFunction, 300);
-        });    
+        });
 }
 
 function hideShowTag() {
@@ -84,6 +84,8 @@ function hideTagsWhenScrolling() {
 }
 
 function showPlantComments() {
+    const COMMENTS_URL = "http://localhost:3000/comments"
+
     let plantId = this.parentNode.getAttribute("data-num");
 
     let showTagContainer = document.querySelector('div#show-tag-container');
@@ -95,6 +97,16 @@ function showPlantComments() {
 
     let ul = document.createElement("ul");
     ul.style = "width: 60%; padding: 0; margin: 0 auto; list-style-type: none;"
+
+    fetch(`${PLANTS_URL}/${plantId}`)
+        .then(resp => resp.json())
+        .then(function(plant) {
+            plant.last_3_comments.forEach(function(comment) {
+                let li = document.createElement("li");
+                li.innerText = comment.content;
+                ul.appendChild(li);
+            });
+        });
 
     let addComment = document.createElement("input");
     addComment.type = "text";
@@ -127,7 +139,7 @@ function showPlantComments() {
             body: JSON.stringify(formData)
         };
 
-        fetch("http://localhost:3000/comments", configObj);
+        fetch(COMMENTS_URL, configObj);
 
         let li = document.createElement("li");
         li.innerText = comment.content;
