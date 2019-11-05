@@ -40,12 +40,14 @@ function showTag() {
     hideCanvas();
     hideFormTag();
     let plantId = this.parentNode.getAttribute("data-num");
-    let container = document.querySelector('div#show-tag-container')
+    let container = document.querySelector('div#show-tag-container');
+    Element
     container.classList.add('active');
     fetch(`${PLANTS_URL}/${plantId}`)
         .then(resp => resp.json())
         .then(function(plant) {
             document.querySelector("div#show-tag-container").innerHTML = "<br><br><br>";
+            document.querySelector("div#show-tag-container").setAttribute("data-num", plantId);
             let name = plant.name;
             let notes = plant.notes;
             let nameE = document.createElement("p");
@@ -55,11 +57,16 @@ function showTag() {
             notesE.style = "width: 70%; margin: 0 auto;"
             notesE.innerText = notes;
             let br = document.createElement("br");
+            let rotate = document.createElement("img");
+            rotate.src = "https://i.imgur.com/3Y2med9.png";
+            rotate.id = "rotate-icon";
+            rotate.style = "width: 10%; bottom: 100px; right: 135px; position: absolute;"
+            rotate.addEventListener("click", showPlantComments);
             function appendFunction() {
-                [nameE, br, notesE].forEach(e => document.querySelector("div#show-tag-container").appendChild(e));
+                [nameE, br, notesE, rotate].forEach(e => document.querySelector("div#show-tag-container").appendChild(e));
             }
             setTimeout(appendFunction, 300);
-        });    
+        });
 }
 
 function hideShowTag() {
@@ -67,7 +74,7 @@ function hideShowTag() {
     document.querySelector('div#show-tag-container').classList.remove("active");
 }
 
-// Hide show tag by clicking anywhere, or by scrolling
+// Hide show tag by scrolling
 function hideTagsWhenScrolling() {
     document.addEventListener("mousewheel", () => {
         hideShowTag();
@@ -76,7 +83,74 @@ function hideTagsWhenScrolling() {
     });
 }
 
+function showPlantComments() {
+    const COMMENTS_URL = "http://localhost:3000/comments"
 
+    let plantId = this.parentNode.getAttribute("data-num");
+
+    let showTagContainer = document.querySelector('div#show-tag-container');
+    showTagContainer.innerHTML = "<br><br>";
+
+    let commentsTitle = document.createElement("p");
+    commentsTitle.innerText = "comments:";
+    commentsTitle.style = "text-decoration: underline;"
+
+    let ul = document.createElement("ul");
+    ul.style = "width: 60%; padding: 0; margin: 0 auto; list-style-type: none;"
+
+    fetch(`${PLANTS_URL}/${plantId}`)
+        .then(resp => resp.json())
+        .then(function(plant) {
+            plant.last_3_comments.forEach(function(comment) {
+                let li = document.createElement("li");
+                li.innerText = comment.content;
+                li.className = "comment";
+                ul.appendChild(li);
+            });
+        });
+
+    let addComment = document.createElement("input");
+    addComment.type = "text";
+    addComment.maxLength = "50";
+    addComment.placeholder = "add a comment:";
+
+    let addButton = document.createElement("button");
+    addButton.id = "add-comment-button";
+    addButton.innerText = "add!";
+    addButton.style = "bottom: 120px; right: 130px; position: absolute;"
+    addButton.addEventListener("click", postComment);
+
+    [commentsTitle, ul, document.createElement("br"), addComment, addButton].forEach(e => showTagContainer.appendChild(e));
+
+    function postComment() {
+        class Comment {
+            constructor(content) {
+                this.content = content;
+            }
+        }
+        let comment = new Comment(addComment.value);
+
+        let formData = { content: comment.content, plant_id: plantId };
+        let configObj = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(formData)
+        };
+
+        fetch(COMMENTS_URL, configObj);
+
+        let li = document.createElement("li");
+        li.innerText = comment.content;
+        li.className = "comment";
+        ul.appendChild(li);
+        ul.firstChild.remove();
+        addComment.style = "display: none;";
+        addButton.style = "display: none;";
+    }
+}
 
 // Show/hide canvas
 
