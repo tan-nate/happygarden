@@ -30,6 +30,7 @@ input {
 div#everything-container {
     width: 100%;
     position: fixed;
+    pointer-events: none;
 }
 h1#title {
     font-family: 'Indie Flower', cursive;
@@ -51,12 +52,14 @@ a#plant-header {
     color: rgb(214, 0, 214);
     text-decoration: underline;
     cursor: pointer;
+    pointer-events: auto;
 }
 div#collapsible {
     border-radius: 2em;
     margin: 0 auto;
     margin-top: -2.5em;
     text-align: center;
+    pointer-events: none;
 }
 div#palette {
     display: inline-block; 
@@ -79,6 +82,7 @@ div#tag-form-wrapper {
     position: relative;
     display: inline-block;
     vertical-align: top;
+    pointer-events: auto;
 }
 div#canvas-container {
     z-index: 5;
@@ -87,6 +91,7 @@ div#canvas-container {
     height: auto;
     max-height: 0;
     display: inline-block;
+    pointer-events: auto;
 }
 div#canvas-container.active {
     max-height: 600px;
