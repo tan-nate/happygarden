@@ -129,6 +129,7 @@ div#show-tag-container {
     transition: max-width 0.3s ease-in-out;
     max-width: 0;
     text-align: center;
+    pointer-events: auto;
 }
 p#plant-name {
     width: 70%; 
