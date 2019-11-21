@@ -15,21 +15,22 @@ function fetchPlants() {
     fetch(PLANTS_URL)
         .then(resp => resp.json())
         .then(json => json.forEach(function(plant) {
-            let img = document.createElement("img");
-            img.className = "plant";
-            img.src = plant.image_url;
-            let div = document.createElement("div");
-            div.className = "card";
-            div.setAttribute("data-num", plant.id);
-            div.appendChild(img);
-            if(plant.include_tag) {
-                let tag = document.createElement("img");
-                tag.className = "tag";
-                tag.src = TAG_IMAGE_SRC;
-                div.appendChild(tag);
-                tag.addEventListener("click", showTag);
-            }
-            document.querySelector("div#saved-image-container").prepend(div);
+            new Plant(plant).renderToDOM();
+            // let img = document.createElement("img");
+            // img.className = "plant";
+            // img.src = plant.image_url;
+            // let div = document.createElement("div");
+            // div.className = "card";
+            // div.setAttribute("data-num", plant.id);
+            // div.appendChild(img);
+            // if(plant.include_tag) {
+            //     let tag = document.createElement("img");
+            //     tag.className = "tag";
+            //     tag.src = TAG_IMAGE_SRC;
+            //     div.appendChild(tag);
+            //     tag.addEventListener("click", showTag);
+            // }
+            // document.querySelector("div#saved-image-container").prepend(div);
         }));
 }
 
@@ -313,20 +314,10 @@ function createPlant() {
         let includeTag = document.querySelector("input#include-tag-checkbox").checked;
         let name = document.querySelector("input#tag-name").value;
         let notes = document.querySelector("textarea#tag-notes").value;
-
-        class Plant {
-            constructor(includeTag, name, notes) {
-                this.includeTag = includeTag;
-                this.name = name;
-                this.notes = notes;
-            }
-        }
-
-        plant = new Plant(includeTag, name, notes);
         
         function retrieveTagData() {
-            if(plant.includeTag) {
-                var tagData = { include_tag: true, name: plant.name, notes: plant.notes };
+            if(includeTag) {
+                var tagData = { include_tag: true, name: name, notes: notes };
             } else {
                 var tagData = { include_tag: false };
             }
@@ -350,22 +341,29 @@ function createPlant() {
         fetch(PLANTS_URL, configObj)
             .then(response => response.json())
             .then(function(plant) {
-                let img = document.createElement("img");
-                img.src = plant.image_url;
-                img.className = "plant";
-                let div = document.createElement("div");
-                div.className = "card";
-                div.setAttribute("data-num", plant.id);
-                div.appendChild(img);
-                if(plant.include_tag) {
-                    let tag = document.createElement("img");
-                    tag.className = "tag";
-                    tag.src = TAG_IMAGE_SRC;
-                    div.appendChild(tag);
-                    tag.addEventListener("click", showTag);
-                }
-                document.querySelector("div#saved-image-container").prepend(div);
+                newPlant = new Plant(plant)
+                newPlant.renderToDOM()
             });
+
+            // fetch(PLANTS_URL, configObj)
+            // .then(response => response.json())
+            // .then(function(plant) {
+            //     let img = document.createElement("img");
+            //     img.src = plant.image_url;
+            //     img.className = "plant";
+            //     let div = document.createElement("div");
+            //     div.className = "card";
+            //     div.setAttribute("data-num", plant.id);
+            //     div.appendChild(img);
+            //     if(plant.include_tag) {
+            //         let tag = document.createElement("img");
+            //         tag.className = "tag";
+            //         tag.src = TAG_IMAGE_SRC;
+            //         div.appendChild(tag);
+            //         tag.addEventListener("click", showTag);
+            //     }
+            //     document.querySelector("div#saved-image-container").prepend(div);
+            // });
         
         hideTagForm();
     }
