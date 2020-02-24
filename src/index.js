@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Fetch all plants
-const PLANTS_URL = "http://localhost:3000/plants";
+const PLANTS_URL = "http://happygarden-api/plants";
 const TAG_IMAGE_SRC = "https://i.imgur.com/vTRPN0A.png";
 
 function fetchPlants() {
@@ -70,7 +70,7 @@ function hideTag() {
 
 // Show plant's comments
 function showPlantComments() {
-    const COMMENTS_URL = "http://localhost:3000/comments"
+    const COMMENTS_URL = "http://happygarden-api/comments"
 
     let plantId = this.parentNode.getAttribute("data-num");
 
