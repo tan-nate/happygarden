@@ -1,0 +1,2 @@
+# happygarden
+happygarden is a site that lets users draw plants and leave comments on them for each other. To run the app on your machine, fork and clone this repo. cd into 'api', and run 'bundle install', then 'rake db:migrate', then 'rails s'. Open the file 'index.html' in your browser. 
