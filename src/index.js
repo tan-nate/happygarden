@@ -7,8 +7,13 @@ document.addEventListener("DOMContentLoaded", function() {
     createPlant();
 });
 
-// Fetch all plants
-const PLANTS_URL = "https://happygarden-api.herokuapp.com/plants";
+// Fetch all plants. Switch during production. 
+const PLANTS_URL = "http://localhost:3000/plants";
+const COMMENTS_URL = "http://localhost:3000/comments";
+
+// const PLANTS_URL = "https://happygarden-api.herokuapp.com/plants";
+// const COMMENTS_URL = "https://happygarden-api.herokuapp.com/comments";
+
 const TAG_IMAGE_SRC = "https://i.imgur.com/vTRPN0A.png";
 
 function fetchPlants() {
@@ -70,8 +75,6 @@ function hideTag() {
 
 // Show plant's comments
 function showPlantComments() {
-    const COMMENTS_URL = "https://happygarden-api.herokuapp.com/comments"
-
     let plantId = this.parentNode.getAttribute("data-num");
 
     let showTagContainer = document.querySelector('div#show-tag-container');
@@ -346,7 +349,7 @@ function createPlant() {
             body: JSON.stringify(formData)
         };
         
-        // Is it preferred to use this method, or the previously defined javascript object, to create the plant?
+        // Is it preferred to use this method, or the previously defined JS object, to create the plant?
         fetch(PLANTS_URL, configObj)
             .then(response => response.json())
             .then(function(plant) {
